@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Activity Manager</h1>
+        <a href="login.html">
+            <div>
+                Login
+            </div>
+        </a>
+    </header>
+    <div class="signup-container">
+        <form action="/submit_signup" method="post">
+            <input type="text" id="username" name="username" placeholder="Username" required><br><br>
+            <input type="password" id="password" name="password" placeholder="Password" required><br><br>
+            <input type="number" id="age" name="age" placeholder="Age" required><br><br>
+            <label for="pathologies">Pathologies</label>
+            <select id="pathologies" name="pathologies[]" multiple required>
+                <option value="diabetes">Diabetes</option>
+                <option value="hypertension">Hypertension</option>
+                <option value="asthma">Asthma</option>
+                <option value="cancer">Cancer</option>
+                <option value="heart_disease">Heart Disease</option>
+            </select><br><br>
+    
+            <button type="submit" value="Signup">Sign up</button>
+        </form>
+    </div>
+</body>
+</html>
