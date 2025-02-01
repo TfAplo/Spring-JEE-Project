@@ -9,28 +9,29 @@
 <body>
     <header>
         <h1>Activity Manager</h1>
-        <a href="login.html">
+        <a href="/login">
             <div>
                 Login
             </div>
         </a>
     </header>
     <div class="signup-container">
-        <form action="/submit_signup" method="post">
-            <input type="text" id="username" name="username" placeholder="Username" required><br><br>
-            <input type="password" id="password" name="password" placeholder="Password" required><br><br>
+        <form action="/signup" method="post">
+            <input type="text" id="username" name="username" placeholder="Username" minlength="3" required><br><br>
+            <input type="password" id="password" name="password" placeholder="Password" minlength="5" required><br><br>
             <input type="number" id="age" name="age" placeholder="Age" required><br><br>
             <label for="pathologies">Pathologies</label>
-            <select id="pathologies" name="pathologies[]" multiple required>
-                <option value="diabetes">Diabetes</option>
-                <option value="hypertension">Hypertension</option>
-                <option value="asthma">Asthma</option>
-                <option value="cancer">Cancer</option>
-                <option value="heart_disease">Heart Disease</option>
+            <select id="pathologies" name="pathologies[]" multiple>
+                <th:block th:each="pathology : ${pathologies}">
+                    <option th:value="${pathology.description}" th:text="${pathology.description}"></option>
+                </th:block>
             </select><br><br>
     
             <button type="submit" value="Signup">Sign up</button>
         </form>
+        <div style="color: red;">
+            <p th:if="${error}" th:text="${error}"></p>
+        </div>
     </div>
 </body>
 </html>

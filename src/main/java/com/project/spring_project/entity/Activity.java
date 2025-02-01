@@ -1,14 +1,13 @@
 package com.project.spring_project.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 public class Activity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_activity;
     private String name;
     private String description;

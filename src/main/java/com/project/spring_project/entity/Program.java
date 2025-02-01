@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 public class Program {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_program;
     private String name;
 
