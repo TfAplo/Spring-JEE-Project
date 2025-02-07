@@ -1,11 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <link rel="stylesheet" th:href="@{/styleHomePage.css}">
 </head>
 <body>
-    <h1>Welcome, <span th:text="${username}"></span>!</h1>
-    <p>Your age: <span th:text="${age}"></span></p>
+
+
+<main class="home-container">
+
+    <section>
+
+        <h2>Bienvenue <span th:text="${username}"></span></h2>
+        <p>Voici une séléction d'activitées adapté à vos pathologies .</p>
+    </section>
+
+    <ul class="activities-grid">
+        <li class="activity-tile" th:each="activity : ${recommendedActivities}">
+            <span class="activity-name" th:text="${activity.name}"></span>
+            <span th:text="${activity.description}"></span>
+
+            <div class="activity-pathologies">
+                <p>
+                <span th:each="ap, iterStat : ${activity.pathologies}">
+                    <span th:text="${ap.pathology.description}"></span><span th:if="${!iterStat.last}">, </span>
+                </span>
+                </p>
+            </div>
+        </li>
+    </ul>
+</main>
 </body>
 </html>

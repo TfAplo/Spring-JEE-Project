@@ -14,9 +14,13 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 @WebFilter("/*")  // Applique ce filtre à toutes les requêtes
 public class RequestRedirectFilter implements Filter {
 
+
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
+
+
 
     @Override
     public void doFilter(jakarta.servlet.ServletRequest request, jakarta.servlet.ServletResponse response, FilterChain chain)
@@ -24,6 +28,7 @@ public class RequestRedirectFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
+
 
         if (isUserAuthenticated() && isRestrictedPage(httpRequest)) {
             httpResponse.sendRedirect("/home");  // Redirection vers /home
@@ -40,7 +45,7 @@ public class RequestRedirectFilter implements Filter {
 
     private boolean isRestrictedPage(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        return !(requestURI.equals("/home") || requestURI.equals("/test"));
+        return !(requestURI.equals("/home") || requestURI.equals("/test") || requestURI.equals("/styles.css") || requestURI.equals("/styleHomePage.css"));
     }
 
     @Override

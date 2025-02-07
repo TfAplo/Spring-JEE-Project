@@ -9,8 +9,9 @@ public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_activity;
-    private String name;
     private String description;
+    private String name;
+
     @OneToMany(mappedBy = "activity")
     private List<Evaluation> evaluations;
 
