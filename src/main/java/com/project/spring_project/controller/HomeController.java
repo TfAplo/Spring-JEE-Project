@@ -26,6 +26,7 @@ public class HomeController {
 
     @GetMapping("/home")
     public String home(Model model) {
+        System.out.println("dans /homecontroller");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         User loggedInUser = (User) authentication.getPrincipal();

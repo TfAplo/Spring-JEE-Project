@@ -1,14 +1,14 @@
 package com.project.spring_project.Security;
 
-import com.project.spring_project.filter.RequestRedirectFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 @Configuration
 public class SecurityConfig {
@@ -24,7 +24,8 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/signup","/styles.css").permitAll()
+                        .requestMatchers("/", "/login", "/signup", "/styles.css", "/css/**", "/js/**", "/images/**", "/favicon.ico", "/*.css").permitAll()
+                        .requestMatchers("/home", "/search", "/activities", "/test").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -37,8 +38,22 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
-                .addFilterBefore(new RequestRedirectFilter(), UsernamePasswordAuthenticationFilter.class);;
+                .exceptionHandling(exception -> exception
+                        .accessDeniedHandler(accessDeniedHandler())
+                );
+
         return http.build();
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return (request, response, accessDeniedException) -> {
+            if (!request.getRequestURI().startsWith("/api")) {
+                response.sendRedirect("/home");
+            } else {
+                response.sendError(HttpStatus.FORBIDDEN.value());
+            }
+        };
     }
 
     @Bean
