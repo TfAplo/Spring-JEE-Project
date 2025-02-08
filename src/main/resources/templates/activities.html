@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" lang="fr">
+<head><link rel="stylesheet" th:href="@{/activities.css}"></head>
+<body>
+    <div class="right-content" layout:fragment="content" style="width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;">
+        <div class="search-activity" >
+            <h1>Look for new activities</h1>
+            <input id="searchInput" type="text" placeholder="Search an activity">
+            <br>
+            <div class="activities-container" id="activityResultsContainer">
+                <div th:replace="Activity-list :: ActivityList"></div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function() {
+                $('#searchInput').on('input', function() {
+                    const searchQuery = $(this).val();
+
+                    $.ajax({
+                        url: '/search',
+                        type: 'GET',
+                        data: { query: searchQuery },
+                        success: function(response) {
+                            $('#activityResultsContainer').html(response);
+                            attachEventHandlers();
+                        },
+                        error: function(xhr) {
+                            console.error('Error:', xhr.statusText);
+                        }
+                    });
+                });
+
+                function attachEventHandlers() {
+                    $('#activityResultsContainer').off('click', '.title').on('click', '.title', function() {
+                        $(this).next('.description').toggleClass('hidden');
+                        $(this).toggleClass('clicked');
+                    });
+                }
+
+                attachEventHandlers();
+            });
+        </script>
+    </div>
+</body>
+</html>

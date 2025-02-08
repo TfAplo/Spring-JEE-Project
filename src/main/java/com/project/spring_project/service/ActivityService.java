@@ -22,4 +22,8 @@ public class ActivityService {
     public List<Activity> getRecommendedActivities(int userId) {
         return activityRepository.findActivitiesByUserId(userId);
     }
+
+    public List<Activity> searchActivities(String query) {
+        return activityRepository.findByNameContaining(query);
+    }
 }

@@ -31,9 +31,9 @@ public class RequestRedirectFilter implements Filter {
 
 
         if (isUserAuthenticated() && isRestrictedPage(httpRequest)) {
-            httpResponse.sendRedirect("/home");  // Redirection vers /home
+            httpResponse.sendRedirect("/home");
         } else {
-            chain.doFilter(request, response);  // Continuer avec la chaîne de filtres
+            chain.doFilter(request, response);
         }
     }
 
@@ -45,7 +45,7 @@ public class RequestRedirectFilter implements Filter {
 
     private boolean isRestrictedPage(HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        return !(requestURI.equals("/home") || requestURI.equals("/test") || requestURI.equals("/styles.css") || requestURI.equals("/styleHomePage.css"));
+        return !(requestURI.equals("/home") || requestURI.equals("/search") || requestURI.equals("/activities") || requestURI.equals("/test") || requestURI.matches(".+\\.css$"));
     }
 
     @Override

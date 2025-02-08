@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<body>
+    <div th:fragment="ActivityList" class="activities">
+        <div class="item clicked" th:each="activity : ${activities}">
+            <div class="title">
+                <div class="name" th:text="${activity.name}"></div>
+                <div style="color: #5A4FB0" th:text="${activity.averageRate} + '/5'"></div>
+            </div>
+            <div class="description hidden">
+                <div>
+                    <b th:text="${activity.description}">Description: </b><br>
+                    <div style="color: #575656" th:each="activityPathology : ${activity.pathologies}"  th:text="${activityPathology.pathology.description}"></div>
+                </div>
+                <button th:id="${'activity-' + activity.id_activity}">Add to program</button>
+            </div>
+          </div>
+    </div>
+</body>
+</html>

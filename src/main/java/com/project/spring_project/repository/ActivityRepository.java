@@ -15,4 +15,5 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
             "JOIN User_Pathology up ON ap.pathology.id_pathology = up.pathology.id_pathology " +
             "WHERE up.user.id_user = :userId")
     List<Activity> findActivitiesByUserId(@Param("userId") int userId);
+    List<Activity> findByNameContaining(String name);
 }

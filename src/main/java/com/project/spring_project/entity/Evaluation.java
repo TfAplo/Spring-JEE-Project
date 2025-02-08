@@ -18,7 +18,8 @@ public class Evaluation {
     @JoinColumn(name = "id_user")
     private User user;
 
-    // Getters et Setters
+    private double rate;
+
     public EvaluationId getId() {
         return id;
     }
@@ -41,5 +42,12 @@ public class Evaluation {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 }

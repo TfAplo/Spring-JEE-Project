@@ -1,0 +1,90 @@
+
+.search-activity{
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    margin-top: 100px;
+    border-radius: 8px;
+}
+
+.search-activity h1{
+    color: #333;
+    margin-bottom: 50px;
+    font-size: 50px;
+}
+
+.search-activity input[type="text"]{
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    color: #333;
+    border-radius: 8px;
+    padding-left: 10px;
+}
+
+.activities-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-bottom: 2px solid #d0d2d4;
+    background-color: #fff;
+    border-radius: 8px ;
+    padding: 20px;
+}
+
+.activities{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+  
+.title {
+    font-weight: bold;
+    padding: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title:hover {
+    background-color: #f2f2f2;
+}
+  
+.description {
+    background-color: #f9f9f9;
+    padding: 10px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.description button{
+    background-color: #5a4fb049;
+    font-weight: bold;
+    color: #5A4FB0;
+    border: solid 2px #5A4FB0;
+    padding: 0px 10px 0px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 30px;
+}
+
+.description button:hover{
+    background-color: #5A4FB0;
+    color: white;
+}
+  
+.hidden {
+    display: none;
+}
+
+.clicked{
+    background-color: #f2f2f2
+}

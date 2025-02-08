@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title th:text="${#strings.isEmpty(title) ? 'My App' : title}">My App</title>
+    <link rel="stylesheet" th:href="@{/layout.css}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <div class="sidebar-container">
+        <nav class="sidebar">
+            <div class="logo-container">
+                <a th:href="@{/home}" class="logo">
+                    <span style="margin-left: 10px;">ActivityManager</span>
+                </a>
+            </div>
+    
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a th:href="@{/activities}" class="nav-link">
+                        Activities
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Recommandations
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Pathologies
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Programs
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Profile
+                    </a>
+                </li>
+            </ul>
+    
+            <a class="logout-btn" th:href="@{/logout}" role="button">
+                <span style="margin-left: 10px;">Logout</span>
+            </a>
+        </nav>
+    </div>
+
+    <main layout:fragment="content">
+    </main>
+</body>
+</html>
