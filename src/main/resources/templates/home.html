@@ -6,8 +6,47 @@
     <title>Accueil</title>
     <link rel="stylesheet" th:href="@{/styleHomePage.css}">
 </head>
-<body>
-        <main layout:fragment="content" class="home-container">
+<body layout:fragment="content">
+
+    <aside class="profile-summary">
+        <div class="profile-header">
+            <img src="/img/user.png" alt="User Image" class="profile-icon">
+            <h3>Votre Profil</h3>
+        </div>
+
+        <p><strong>Nom :</strong> <span th:text="${username}"></span></p>
+        <p><strong>Âge :</strong> <span th:text="${age}"></span></p>
+        <br>
+        <div class="pathologies">
+            <h4>Pathologies :</h4>
+            <ul class="pathology-list">
+                <li th:each="userPathology : ${userPathologies}" class="badge">
+                    <span th:text="${userPathology.pathology.description}"></span>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+
+    <div class="main-box">
+        <section class="health-tips">
+            <div class="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item item-eau">
+                        <h3>Restez hydraté en buvant au moins 2 litres d'eau par jour.</h3>
+                    </div>
+                    <div class="carousel-item item-etirement">
+                        <h3>Faites une pause de 5 minutes toutes les heures pour vous étirer.</h3>
+                    </div>
+                    <div class="carousel-item item-equilibre">
+                        <h3>Mangez équilibré : privilégiez les fruits, légumes et protéines.</h3>
+                    </div>
+                </div>
+                <button class="carousel-control prev" onclick="prevSlide()">&#10094;</button>
+                <button class="carousel-control next" onclick="nextSlide()">&#10095;</button>
+            </div>
+        </section>
+        <main class="home-container">
 
             <section>
 
@@ -30,5 +69,45 @@
                 </li>
             </ul>
         </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.carousel-item');
+            const totalSlides = slides.length;
+            const carouselInner = document.querySelector('.carousel-inner');
+            const intervalTime = 7000;
+
+            function updateCarousel() {
+                carouselInner.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+            }
+
+            window.nextSlide = function() {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            };
+
+            window.prevSlide = function() {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            };
+
+            // Lancer l'autoplay
+            let slideInterval = setInterval(nextSlide, intervalTime);
+
+            // Mettre en pause au survol et reprendre après
+            document.querySelector('.carousel').addEventListener('mouseenter', function() {
+                clearInterval(slideInterval);
+            });
+
+            document.querySelector('.carousel').addEventListener('mouseleave', function() {
+                slideInterval = setInterval(nextSlide, intervalTime);
+            });
+        });
+    </script>
+
+
 </body>
+
 </html>

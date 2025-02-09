@@ -3,7 +3,14 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
+    display: flex;
+    flex-direction: row;
+}
 
+.main-box{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 /* Conteneur principal home */
@@ -15,6 +22,8 @@ body {
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: -140px;
+    z-index: 2;
 }
 
 /* Tuiles d'activités */
@@ -68,6 +77,135 @@ section h2 {
 
 
 
+/* Profil utilisateur à droite */
+.profile-summary {
+    position: fixed;
+    top: 300px;
+    right: 10px;
+    width: 250px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    z-index: 10;
+    color : #444;;
+}
+
+/* En-tête du profil */
+.profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.profile-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.pathologies h4{
+    margin-bottom: 6px;
+}
+
+/* Liste des pathologies */
+.pathology-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    padding-top: 4px;
+}
+
+.badge {
+    background: #007bff;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 13px;
+}
+
+
+
+/* ########################################## Carousel pour Conseils Santé & Actualités ########################################## */
+.health-tips{
+    width: 100%;
+    margin: 0 auto 40px;
+    z-index: -1;
+}
+
+.carousel {
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+    min-width: 100%;
+    height: 550px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+
+.item-eau{
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('img/carroussel-eau.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.item-equilibre{
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('img/carroussel-equilibre.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.item-etirement{
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('img/carroussel-etirement.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    display: none;
+}
+
+.carousel-control.prev {
+    left: 10px;
+}
+
+.carousel-control.next {
+    right: 10px;
+}
+
+
 /* Responsive */
 @media (max-width: 768px) {
     header {
@@ -85,6 +223,10 @@ section h2 {
 
     .activities-grid {
         grid-template-columns: 1fr;
+    }
+
+    .profile-summary{
+        display: none;
     }
 }
 

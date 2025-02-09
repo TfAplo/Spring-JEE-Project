@@ -2,6 +2,8 @@ package com.project.spring_project.controller;
 
 import com.project.spring_project.entity.Activity;
 import com.project.spring_project.entity.User;
+import com.project.spring_project.entity.User_Pathology;
+import com.project.spring_project.repository.UserPathologyRepository;
 import com.project.spring_project.service.ActivityService;
 import com.project.spring_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserPathologyRepository userPathologyRepository;
+
     @GetMapping("/home")
     public String home(Model model) {
         System.out.println("dans /homecontroller");
@@ -33,10 +38,13 @@ public class HomeController {
 
         if (loggedInUser == null) {
             model.addAttribute("recommendedActivities", Collections.emptyList());
+            model.addAttribute("userPathologies", Collections.emptyList());
         }
         else {
             model.addAttribute("username", loggedInUser.getUsername());
             model.addAttribute("age", loggedInUser.getAge());
+            List<User_Pathology> userPathologies = userPathologyRepository.findByUserId(loggedInUser.getId());
+            model.addAttribute("userPathologies", userPathologies);
             List<Activity> recommendedActivities = activityService.getRecommendedActivities(loggedInUser.getId());
             model.addAttribute("recommendedActivities", recommendedActivities);
 

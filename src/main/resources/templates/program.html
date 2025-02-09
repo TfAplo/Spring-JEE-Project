@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" lang="fr">
+<head><link rel="stylesheet" th:href="@{/program.css}"></head>
+<body>
+<div class="right-content" layout:fragment="content" style="width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;">
+
+  <div class="program-container">
+    <h1>Mes Programmes</h1>
+
+    <!-- Formulaire  -->
+    <form action="/program" method="POST">
+      <input type="text" name="name" placeholder="Nom du nouveau programme" required>
+      <button type="submit">Créer un programme</button>
+    </form>
+
+    <!-- Liste des programmes -->
+    <div id="programsList">
+      <div th:each="prog : ${program}"
+           th:class="${'program-item ' + (prog.id_program == selectedProgramId ? 'selected' : '')}">
+        <div class="program-header">
+          <form th:action="@{/program/{id}/select(id=${prog.id_program})}" method="POST">
+            <button type="submit">Sélectionner pour ajouter des activités</button>
+          </form>
+
+          <span class="program-name" th:text="${prog.name}"></span>
+
+          <form th:action="@{/program/{id}/update(id=${prog.id_program})}"
+                method="POST"
+                class="edit-form hidden">
+            <input type="text" name="name" th:value="${prog.name}">
+            <button type="submit">Sauvegarder</button>
+            <button type="button" onclick="toggleEdit(this.parentElement)">Annuler</button>
+          </form>
+
+          <button onclick="toggleEdit(this.previousElementSibling)">Renommer</button>
+
+          <form th:action="@{/program/{id}/delete(id=${prog.id_program})}"
+                method="POST"
+                onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce programme ?')">
+            <button type="submit">Supprimer</button>
+          </form>
+        </div>
+
+        <div class="activities-list">
+          <div th:each="activity : ${prog.activities}" class="activity-item">
+            <span th:text="${activity.activity.name}"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleEdit(form) {
+      const programItem = form.closest('.program-item');
+      const nameSpan = programItem.querySelector('.program-name');
+      const editForm = programItem.querySelector('.edit-form');
+
+      nameSpan.classList.toggle('hidden');
+      editForm.classList.toggle('hidden');
+
+      if (!editForm.classList.contains('hidden')) {
+        editForm.querySelector('input[name="name"]').focus();
+      }
+    }
+  </script>
+
+</div>
+</body>
+</html>
