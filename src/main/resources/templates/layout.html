@@ -48,8 +48,33 @@
             </a>
         </nav>
     </div>
+    <div id="notification" class="notification hidden">
+        <p id="notification-text"></p>
+    </div>
 
     <main layout:fragment="content">
     </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var successMessage = "[[${successMessage}]]";
+
+            if (successMessage && successMessage !== "null") {
+                showNotification(successMessage);
+            }
+        });
+
+        function showNotification(message) {
+            var notification = document.getElementById("notification");
+            var notificationText = document.getElementById("notification-text");
+
+            notificationText.textContent = message;
+            notification.classList.add("show");
+
+            setTimeout(function() {
+                notification.classList.remove("show");
+            }, 3000);
+        }
+    </script>
+
 </body>
 </html>

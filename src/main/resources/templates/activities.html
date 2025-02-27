@@ -17,11 +17,15 @@
                 <div th:replace="Activity-list :: ActivityList"></div>
             </div>
         </div>
+        <div id="popupModal" class="modal">
+            <div th:replace="Pop-upRating :: Popup"></div>
+        </div>
         <script>
+            //fonction permettant la recherche d'activitées quand on tape dans l'input
             $(document).ready(function() {
                 $('#searchInput').on('input', function() {
                     const searchQuery = $(this).val();
-
+                    //permet d'envoyer une requète ajax vers le SearchController
                     $.ajax({
                         url: '/search',
                         type: 'GET',
@@ -37,15 +41,48 @@
                 });
 
                 function attachEventHandlers() {
+                    //Permet l'affichage de la description de chaques activitées
                     $('#activityResultsContainer').off('click', '.title').on('click', '.title', function() {
                         $(this).next('.description').toggleClass('hidden');
                         $(this).toggleClass('clicked');
                     });
+
+                    //permet l'affichage de la popupRating quand on clique sur le bouton
+                    $(".show-details").click(function() {
+                        var activityId = $(this).data("id");
+
+                        $.ajax({
+                            url: '/activity',
+                            type: 'GET',
+                            data: { id: activityId },
+                            success: function(response) {
+                                $('#popupModal').html(response);
+                                setTimeout(function() {
+                                    $("#popupModal").show();
+                                    $(".close").click(function() {
+                                        $("#popupModal").hide();
+                                        console.log("cliked")
+                                    });
+                                }, 100);
+                            },
+                            error: function(xhr) {
+                                console.error('Erreur AJAX:', xhr.statusText);
+                            }
+                        });
+                    });
                 }
 
                 attachEventHandlers();
+
+                //ferme la popup quand on clique autre part
+                $(window).click(function(event) {
+                    if ($(event.target).is("#popupModal")) {
+                        $("#popupModal").hide();
+                    }
+                });
             });
         </script>
+
     </div>
 </body>
 </html>
