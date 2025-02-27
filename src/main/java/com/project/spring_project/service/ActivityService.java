@@ -26,4 +26,12 @@ public class ActivityService {
     public List<Activity> searchActivities(String query) {
         return activityRepository.findByNameContaining(query);
     }
+
+    public Activity getActivityById(Long id) {
+        return activityRepository.findById(id).orElse(null);
+    }
+
+    public Activity saveActivity(Activity activity) {
+        return activityRepository.save(activity);
+    }
 }

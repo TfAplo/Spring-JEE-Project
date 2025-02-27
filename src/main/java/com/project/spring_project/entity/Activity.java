@@ -78,4 +78,12 @@ public class Activity {
     public void setAverageRate(double averageRate) {
         this.averageRate = averageRate;
     }
+
+    public double getUserRating(int userId) {
+        return evaluations.stream()
+                .filter(e -> e.getUser().getId() == userId)
+                .map(Evaluation::getRate)
+                .findFirst()
+                .orElse(0.0); // Valeur par défaut si l'utilisateur n'a pas noté
+    }
 }
