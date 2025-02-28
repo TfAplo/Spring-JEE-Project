@@ -1,7 +1,9 @@
 package com.project.spring_project.service;
 
+import com.project.spring_project.entity.Evaluation;
 import com.project.spring_project.entity.Program;
 import com.project.spring_project.entity.User;
+import com.project.spring_project.repository.EvaluationRepository;
 import com.project.spring_project.repository.ProgramRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,12 +21,32 @@ public class ProgramService {
     @Autowired
     private UserService UserService;
 
+    @Autowired
+    private EvaluationRepository evaluationRepository;
+
     public List<Program> getAllPrograms() {
         return programRepository.findAll();
     }
 
     public List<Program> getProgramsByUser(User user) {
-        return programRepository.findByUser(user);
+        List<Program> programs = programRepository.findByUser(user);
+
+        programs.forEach(program -> {
+            Double average = calculateUserAverageForProgram(program, user);
+            program.setUserAverage(average);
+        });
+
+        return programs;
+    }
+
+    private Double calculateUserAverageForProgram(Program program, User user) {
+        return program.getActivities().stream()
+                .flatMap(activity ->
+                        evaluationRepository.findByActivityAndUser(activity.getActivity(), user).stream()
+                )
+                .mapToDouble(Evaluation::getRate)
+                .average()
+                .orElse(0.0);
     }
 
     @Transactional

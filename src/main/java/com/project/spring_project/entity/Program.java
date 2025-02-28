@@ -19,6 +19,14 @@ public class Program {
     @OneToMany(mappedBy = "program")
     private List<Activity_Program> activities;
 
+    @Transient
+    private double userAverage;
+
+    public double getUserAverage() {
+        return userAverage;
+    }
+    public void setUserAverage(double userAverage) { this.userAverage = userAverage; }
+
     public int getId_program() {
         return id_program;
     }

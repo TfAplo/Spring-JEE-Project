@@ -23,7 +23,7 @@
       <div th:each="prog : ${programs}">
         <div class="program-header">
           <form th:action="@{/program/{id}/select(id=${prog.id_program})}" method="POST">
-            <button type="submit">Sélectionner pour ajouter des activités</button>
+            <button type="submit">Select to add activities</button>
           </form>
 
           <span class="program-name" th:text="${prog.name}"></span>
@@ -49,6 +49,10 @@
           <div th:each="activity : ${prog.activities}" class="activity-item">
             <span th:text="${activity.activity.name}"></span>
           </div>
+        </div>
+        <div class="moyenne">
+          Your averages :
+          <span th:text="${#numbers.formatDecimal(programAverages.get(prog), 1, 1)}"></span>/5
         </div>
       </div>
     </div>
