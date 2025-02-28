@@ -60,10 +60,7 @@ form[action="/program"] button:hover {
     transition: transform 0.2s ease;
 }
 
-.program-item.selected {
-    border-color: #4299e1;
-    background-color: #f8fafc;
-}
+
 
 .program-header {
     display: flex;

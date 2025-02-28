@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 public class User_Pathology {
     @EmbeddedId
-    User_PathologyId id;
+    User_PathologyId id = new User_PathologyId();
 
     @ManyToOne
     @MapsId("id_pathology")

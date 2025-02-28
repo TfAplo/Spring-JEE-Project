@@ -37,7 +37,8 @@ public class User_PathologyId {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User_PathologyId that = (User_PathologyId) o;
-        return Objects.equals(id_user, that.id_user) && Objects.equals(id_pathology, that.id_user);
+        return id_user == that.id_user &&
+                id_pathology == that.id_pathology;
     }
 
     @Override

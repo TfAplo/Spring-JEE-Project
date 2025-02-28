@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/program")
 public class ProgramController {
@@ -20,10 +22,14 @@ public class ProgramController {
     private ProgramService programService;
 
     @GetMapping
-    public String showPrograms(Model model, HttpSession session) {
-        model.addAttribute("program", programService.getAllPrograms());
-        Long selectedProgramId = (Long) session.getAttribute("selectedProgramId");
-        model.addAttribute("selectedProgramId", selectedProgramId);
+    public String showUserPrograms(Model model, Authentication authentication) {
+        User currentUser = (User) authentication.getPrincipal();
+
+        model.addAttribute("currentUser", currentUser);
+
+        List<Program> userPrograms = programService.getProgramsByUser(currentUser);
+        model.addAttribute("programs", userPrograms);
+
         return "program";
     }
 
@@ -34,16 +40,16 @@ public class ProgramController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             User loggedInUser = (User) authentication.getPrincipal();
             if (loggedInUser == null) {
-                redirectAttributes.addFlashAttribute("error", "Utilisateur non connecté");
+                redirectAttributes.addFlashAttribute("error", "User not logged in");
                 return "redirect:/login";
             }
 
             int userId = loggedInUser.getId();
             Program program = programService.createProgram(name, userId);
-            redirectAttributes.addFlashAttribute("message", "Programme créé avec succès");
+            redirectAttributes.addFlashAttribute("successMessage", "Program created successfully");
             return "redirect:/program";
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Erreur lors de la création du programme");
+            redirectAttributes.addFlashAttribute("error", "Error creating program");
             return "redirect:/program";
         }
     }

@@ -23,9 +23,8 @@ public class ProgramService {
         return programRepository.findAll();
     }
 
-    public Program getProgram(Long id) {
-        return programRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Programme non trouvé"));
+    public List<Program> getProgramsByUser(User user) {
+        return programRepository.findByUser(user);
     }
 
     @Transactional
@@ -42,7 +41,7 @@ public class ProgramService {
     @Transactional
     public Program updateProgram(Long id, String name) {
         Program program = programRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Programme non trouvé"));
+                .orElseThrow(() -> new RuntimeException("Program not found"));
         program.setName(name);
         return programRepository.save(program);
     }
