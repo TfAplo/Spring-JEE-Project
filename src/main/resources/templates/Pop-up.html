@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<body>
+<div th:fragment="Popup" class="frg-mod">
+    <div th:if="${act == true}" class="modal-content">
+        <span class="close">&times;</span>
+        <h2 class="modal-title" th:text="'Rate the activity: ' +${activity.name}"></h2>
+        <div class="rating-summary">
+            <p class="global-rating">Global Rating: <span class="rating-value" th:text="${activity.averageRate}"></span>/5</p>
+            <p class="user-rating">Your Rating: <span class="rating-value" th:text="${userRating}">0.0</span>/5</p>
+        </div>
+        <p class="rating-instruction">Modify or add your rating:</p>
+        <form class="input-rating-container" th:action="@{/activity/rate}" method="post">
+            <input type="hidden" name="activityId" th:value="${activity.id_activity}" />
+            <input type="number" name="rating" id="selected-rating" th:value="${userRating}" min="0" max="5" step="1" />
+            <button type="submit" id="submitRating" class="submit-rating">Submit Rating</button>
+        </form>
+    </div>
+    <div th:if="${prog == true}" class="modal-content">
+        <span class="close">&times;</span>
+        <h1 th:text="'Add '+ ${activity.name} + ' to program(s)'"></h1>
+        <form class="form-prog" th:action="@{/activity/addToProg}" method="post">
+            <div class="prog-container">
+                <div class="prog" th:each="program : ${programs}">
+                    <div class="prog-title">
+                        <h3 th:text="${program.name}"></h3>
+                            <input type="checkbox" name="selectedProgramIds" th:value="${program.id_program}" th:disabled="${#lists.contains(program.activities.![activity.name], activity.name)}"/>
+                    </div>
+                    <ul class="prog-activity-container">
+                        <li th:each="act : ${program.activities}">
+                            <span th:text="${act.activity.name}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <input type="hidden" name="activityId" th:value="${activity.id_activity}" />
+            <button type="submit" id="submitProg" class="submit-rating">Add</button>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

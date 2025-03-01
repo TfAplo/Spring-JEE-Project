@@ -19,14 +19,15 @@
         <div class="login-container">
             <h1>Login to your account</h1>
             <form th:action="@{/login}" method="post">
-                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="text" id="username" name="username" placeholder="Username" autocomplete="off" required>
                 <br>
                 <input type="password" id="password" name="password" placeholder="password" required>
                 <br>
                 <button type="submit">Login</button>
             </form>
-            <div style="color: red;">
-                <p th:if="${param.error}" th:text="'Invalid username or password'"></p>
+            <div>
+                <p th:if="${param.error}" style="color: red;" th:text="'Invalid username or password'"></p>
+                <p th:if="${param.signupSuccess}" style="color: green;" th:text="Registration successful ! You may now connect."></p>
             </div>
         </div>
     </main>
