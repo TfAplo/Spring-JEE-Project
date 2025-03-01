@@ -21,7 +21,6 @@ public class User  implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<User_Pathology> pathologies;
 
-    // Getters et setters
     public int getId() {
         return id_user;
     }
