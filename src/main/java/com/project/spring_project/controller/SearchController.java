@@ -74,7 +74,7 @@ public class SearchController {
     @GetMapping("/progDetails")
     public String getProgramDetails(@RequestParam Long id, Model model, @AuthenticationPrincipal User currentUser) {
         Activity activity = activityService.getActivityById(id);
-        List<Program> programs = programService.getAllPrograms();
+        List<Program> programs = programService.getProgramsByUser(currentUser);
 
         model.addAttribute("activity", activity);
         model.addAttribute("prog", true);
