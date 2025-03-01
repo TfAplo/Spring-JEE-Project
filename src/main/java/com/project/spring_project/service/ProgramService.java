@@ -72,5 +72,10 @@ public class ProgramService {
     public void deleteProgram(Long id) {
         programRepository.deleteById(id);
     }
+
+    public Program getProgram(Long id) {
+        return programRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Programme non trouvé"));
+    }
 }
 
