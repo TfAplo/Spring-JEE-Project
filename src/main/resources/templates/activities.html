@@ -18,7 +18,7 @@
             </div>
         </div>
         <div id="popupModal" class="modal">
-            <div th:replace="Pop-upRating :: Popup"></div>
+            <div th:replace="Pop-up :: Popup"></div>
         </div>
         <script>
             //fonction permettant la recherche d'activitées quand on tape dans l'input
@@ -48,7 +48,7 @@
                     });
 
                     //permet l'affichage de la popupRating quand on clique sur le bouton
-                    $(".show-details").click(function() {
+                    $(".show-details-rating").click(function() {
                         var activityId = $(this).data("id");
 
                         $.ajax({
@@ -61,7 +61,29 @@
                                     $("#popupModal").show();
                                     $(".close").click(function() {
                                         $("#popupModal").hide();
-                                        console.log("cliked")
+                                    });
+                                }, 100);
+                            },
+                            error: function(xhr) {
+                                console.error('Erreur AJAX:', xhr.statusText);
+                            }
+                        });
+                    });
+
+                    //permet l'affichage de la popupProgram quand on clique sur le bouton
+                    $(".show-details-prog").click(function() {
+                        var activityId = $(this).data("id");
+
+                        $.ajax({
+                            url: '/progDetails',
+                            type: 'GET',
+                            data: { id: activityId },
+                            success: function(response) {
+                                $('#popupModal').html(response);
+                                setTimeout(function() {
+                                    $("#popupModal").show();
+                                    $(".close").click(function() {
+                                        $("#popupModal").hide();
                                     });
                                 }, 100);
                             },

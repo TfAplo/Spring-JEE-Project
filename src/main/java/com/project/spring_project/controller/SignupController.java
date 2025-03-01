@@ -47,7 +47,7 @@ public class SignupController {
             user.setAge(age);
 
             userService.registerUser(user,pathologies);
-            return "redirect:/login?signupSuccess"; // Redirection après réussite
+            return "redirect:/login?signupSuccess";
         } catch (Exception e) {
             model.addAttribute("error", "Erreur lors de l'inscription : " + e.getMessage());
             List<Pathology> paths = pathologyService.getAllPathologies();

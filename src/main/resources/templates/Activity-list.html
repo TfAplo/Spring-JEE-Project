@@ -13,8 +13,8 @@
                 <div style="color: #575656" th:each="activityPathology : ${activity.pathologies}"  th:text="${activityPathology.pathology.description}"></div>
             </div>
             <div class="button-container">
-                <button th:id="${'activity-' + activity.id_activity}">Add to program</button>
-                <button class="show-details" th:data-id="${activity.id_activity}">Add a rating</button>
+                <button class="show-details-prog" th:data-id="${activity.id_activity}">Add to program</button>
+                <button class="show-details-rating" th:data-id="${activity.id_activity}" th:if="${#lists.contains(userActivities, activity)}">Add a rating</button>
             </div>
         </div>
     </div>

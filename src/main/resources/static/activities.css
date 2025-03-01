@@ -97,7 +97,7 @@
     gap: 10px;
 }
 
-/*************************************************POP UP***************************/
+/*************************************************POP UP Rating***************************/
 .modal {
     display: none;
     position: fixed;
@@ -196,4 +196,54 @@
     color: #e67e22;
     padding: 5px 10px 5px 10px;
     height: 30px;
+}
+
+/*************************************************POP UP prog***************************/
+
+.form-prog {
+    background: white;
+    padding: 20px;
+    width: 400px;
+}
+
+.prog-container {
+    display: flex;
+    margin-bottom: 15px;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+
+.prog {
+    padding: 10px;
+    background-color: #ededed;
+    border-radius: 5px;
+    margin: 10px;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.prog-title{
+    display: flex;
+}
+
+.prog-title h3{
+    margin-right: 10px;
+}
+
+.prog input[type="radio"] {
+    cursor: pointer;
+}
+
+.prog-activity-container {
+    list-style: none;
+    margin-top: 10px;
+    background-color: #ffffff;
+}
+
+.prog-activity-container li {
+    padding: 5px;
+    border-left: 3px solid #007BFF;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    font-size: 14px;
 }
