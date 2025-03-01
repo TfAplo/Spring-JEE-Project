@@ -129,7 +129,6 @@ public class SearchController {
                                @AuthenticationPrincipal User currentUser,
                                RedirectAttributes redirectAttributes){
 
-
         Activity activity = activityService.getActivityById(activityId);
         if (activity == null || selectedProgramIds == null || selectedProgramIds.isEmpty()) {
             return "redirect:/activities";
@@ -138,7 +137,7 @@ public class SearchController {
             Program program = programService.getProgram(programId);
             if (program != null) {
                 //on verifie si l'association existe deja
-                Activity_ProgramId activityProgramId = new Activity_ProgramId(activity.getId_activity(), program.getId_program());
+                Activity_ProgramId activityProgramId = new Activity_ProgramId(program.getId_program(), activity.getId_activity());
                 if (!activityProgramService.existsById(activityProgramId)) {
                     // Création d'un nouvel Activity_Program
                     Activity_Program activityProgram = new Activity_Program();
