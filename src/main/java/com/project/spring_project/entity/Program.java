@@ -16,7 +16,7 @@ public class Program {
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "program")
+    @OneToMany(mappedBy = "program",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Activity_Program> activities;
 
     @Transient
