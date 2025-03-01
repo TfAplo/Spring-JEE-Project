@@ -20,7 +20,7 @@
     </form>
 
     <div id="programsList">
-      <div th:each="prog : ${programs}">
+      <div th:each="prog : ${programs}" class="program-item">
         <div class="program-header">
           <form th:action="@{/program/{id}/select(id=${prog.id_program})}" method="POST">
             <button type="submit">Select to add activities</button>
@@ -32,11 +32,11 @@
                 method="POST"
                 class="edit-form hidden">
             <input type="text" name="name" th:value="${prog.name}">
-            <button type="submit">Sauvegarder</button>
-            <button type="button" onclick="toggleEdit(this.parentElement)">Annuler</button>
+            <button type="submit">Save</button>
+            <button type="button" onclick="toggleEdit(this.parentElement)">Cancel</button>
           </form>
 
-          <button onclick="toggleEdit(this.previousElementSibling)">Rename</button>
+          <button onclick="toggleEdit(this)">Rename</button>
 
           <form th:action="@{/program/{id}/delete(id=${prog.id_program})}"
                 method="POST"
